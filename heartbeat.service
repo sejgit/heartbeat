@@ -1,12 +1,12 @@
 [Unit]
-Description=fishtankup program service
+Description=heartbeat program service
 After=multi-user.target
 
 [Service]
 User=pi
 Type=simple
-WorkingDirectory=/home/pi/fishtank
-ExecStart=/usr/bin/python3 /home/pi/fishtank/fishtank_v4.py -n 'Upstairsfish' -s upfishtemp -i 54
+WorkingDirectory=/home/pi/heartbeat
+ExecStart=/usr/bin/python3 /home/pi/heartbeat/heartbeat.py -n 'heartbeat' -i 54
 Restart=always
 RestartSec=30
 
