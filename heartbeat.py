@@ -28,6 +28,9 @@ parser.add_argument('-i', '--isy', default=0, type=int,
                     help='isy state var number for ISY heartbeat')
 args = parser.parse_args()
 
+if args.isy:
+        print("\n output to ISY state var:" + str(args.isy))
+
 userdir = os.path.expanduser("~")
 if args.dir:
         dir = os.path.join(args.dir, '')
@@ -90,6 +93,7 @@ try:
 
 except IOError:
     logger.error("Could not read prowl api file")
+    exit()
 
 
 # ISY vars
@@ -108,6 +112,7 @@ try:
 
 except IOError:
     logger.error("Could not read ISY auth file")
+    exit()
 
 #
 # defined functions
@@ -151,6 +156,8 @@ def heartbeat(ast):
         s = isyip + '/rest/vars/set/2/' + str(args.isy) + '/0'
 
     try:  # heartbeat
+        if args.test:
+            logger.info('isy heartbeat =' + ast)
         r = requests.get(s, auth=(isylogin, isypass))
         if r.status_code != requests.codes.ok:
                 logger.error('isy heartbeat error =' + str(r.status_code))
@@ -176,6 +183,7 @@ def main():
 
     # log & push temp on first run
     hb = "*"
+    hb = heartbeat(hb)
 
     while True:
         try:
@@ -184,6 +192,8 @@ def main():
 
             # start or stop light/bubbles
             timestamp = dt.datetime.now().time()
+            if args.test:
+                    logger.info('nowtime =' + str(timestamp)[:5])
 
         except KeyboardInterrupt:
             print('\n\nKeyboard exception. Exiting.\n')
