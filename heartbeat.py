@@ -157,7 +157,7 @@ def heartbeat(ast):
 
     try:  # heartbeat
         if args.test:
-            logger.info('isy heartbeat =' + ast)
+            logger.info('isy heartbeat = ' + ast)
         r = requests.get(s, auth=(isylogin, isypass))
         if r.status_code != requests.codes.ok:
                 logger.error('isy heartbeat error =' + str(r.status_code))
@@ -179,7 +179,7 @@ def heartbeat(ast):
 
 def main():
     timestamp = dt.datetime.now().time()
-    logger.info('nowtime =' + str(timestamp)[:5])
+    logger.info('nowtime = ' + str(timestamp)[:5])
 
     # log & push temp on first run
     hb = "*"
@@ -200,8 +200,8 @@ def main():
             logger.info('keyboard exception')
             exit()
 
-        finally:
-            logger.info('program end:', sys.exc_info()[0])
+        except Exception:
+            logger.info('program end: ' + str(sys.exc_info()[0]))
             exit()
     return
 
