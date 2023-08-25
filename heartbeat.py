@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-# heartbeat to isy for pi's
-# 2017 06 02 sej init from fishtank.py
-# 2019 10 05 format-all
-#
+"""
+heartbeat to isy for pi's
+
+ChangeLog
+2017 06 02 sej init from fishtank.py
+2019 10 05 format-all
+"""
+
 # imports and parse args
-#
 
 # imports
 import datetime as dt
@@ -13,8 +16,8 @@ import logging
 import logging.handlers
 import os
 import sys
-import paul
 import argparse
+import paul
 import requests
 
 # parsing
@@ -187,19 +190,19 @@ def main():
             # start or stop light/bubbles
             timestamp = dt.datetime.now().time()
             if args.test:
-                logger.info("nowtime =" + str(timestamp)[:5])
+                logger.info("nowtime = %s", str(timestamp)[:5])
 
         except KeyboardInterrupt:
             print("\n\nKeyboard exception. Exiting.\n")
             logger.info("keyboard exception")
-            exit()
+            sys.exit()
 
-        except Exception:
-            logger.info("program end: " + str(sys.exc_info()[0]))
-            exit()
+        except Exception:  # pylint: disable=broad-except
+            logger.info("program end: %s", sys.exc_info()[0])
+            sys.exit()
     return
 
 
 if __name__ == "__main__":
     main()
-    exit()
+    sys.exit()
