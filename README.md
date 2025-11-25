@@ -1,6 +1,4 @@
 # heartbeat
-heartbeat to ISY
-for use on local Pi's to ISY994
-
+heartbeat to ISY using Python for use on local to ISY994
 
 *** service files copied to /lib/systemd/system
